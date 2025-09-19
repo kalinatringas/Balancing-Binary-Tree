@@ -2,12 +2,12 @@ using namespace std;
 
 class TreeNode{
     public:
-    int val; 
+    int ID; // userID
     TreeNode *left; 
     TreeNode *right;    
-    TreeNode(): val(0), left(nullptr), right(nullptr){}
-    TreeNode (int x) : val (x), left(nullptr), right(nullptr){}
-    TreeNode (int x, TreeNode *left, TreeNode *right): val(x), left(left), right(right) {}
+    TreeNode(): ID(0), left(nullptr), right(nullptr){}
+    TreeNode (int x) : ID (x), left(nullptr), right(nullptr){}
+    TreeNode (int x, TreeNode *left, TreeNode *right): ID(x), left(left), right(right) {}
 
 };
 
