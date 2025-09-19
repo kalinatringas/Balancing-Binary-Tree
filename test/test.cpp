@@ -59,16 +59,6 @@ TEST_CASE("Insertions", "[flag]"){
 // the provided test from the template is below.
 
 TEST_CASE("Insert and delete bulk", "[flag]"){
-	/*
-		MyAVLTree tree;   // Create a Tree object
-		tree.insert(3);
-		tree.insert(2);
-		tree.insert(1);
-		std::vector<int> actualOutput = tree.inorder();
-		std::vector<int> expectedOutput = {1, 2, 3};
-		REQUIRE(expectedOutput.size() == actualOutput.size());
-		REQUIRE(actualOutput == expectedOutput);
-	*/
 	Tree tree; // tree object hellO!
 	for (int i = 1 ; i <= 100; i++){
 		tree.insert(i);
@@ -80,6 +70,14 @@ TEST_CASE("Insert and delete bulk", "[flag]"){
 		tree.remove(id);
 	}
 	REQUIRE(tree.size() == 90);
+
+	auto inorder = tree.printInorder();
+	REQUIRE(inorder.size() == 90);
+	for (int i =1 ; i <= 100; i++){
+		if (find(removed.begin(), removed.end(), i) == removed.end()){
+			REQUIRE(find(inorder.begin(), inorder.end(), i) != inorder.end());
+		}
+	} //should be sorted, do not contain removed elements
 
 
 }
