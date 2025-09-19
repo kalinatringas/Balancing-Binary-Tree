@@ -15,6 +15,7 @@ class Tree{
    public:
     TreeNode* root; //a pointer to the root!
 
-    //i would like to put the insert, delete functions in here? 
+    //i would like to put the insert, delete fun
+    // ctions in here? 
     
 };  
