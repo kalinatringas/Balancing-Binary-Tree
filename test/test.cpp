@@ -1,16 +1,22 @@
-#include <iostream>
-#define CATCH_CONFIG_MAIN  
 #include <catch2/catch_test_macros.hpp>
-#include <vector>
-#include "../src/Tree.h"
+//#include <catch/catch_amalgamated.hpp>
+#include <vector>/*  */
+#include <iostream>
+// Kalina Tringas 93304875
 
 // uncomment and replace the following with your own headers
 // #include "AVL.h"
+
 
 using namespace std;
 
 // the syntax for defining a test is below. It is important for the name to be unique, but you can group multiple tests with [tags]. A test can have [multiple][tags] using that syntax.
 TEST_CASE("Invalid Commands", "[flag]"){
+	REQUIRE_FALSE(processCommand("insert"));// icomplete insert
+	REQUIRE_FALSE(processCommmand("delete")); // not a thing
+	REQUIRE_FALSE(processCommand("insert A11y")); // incomplete
+	REQUIRE_FALSE(processCommand("remove")); // missing arguments
+	REQUIRE_FALSE(processCommand("foobar")); // NOT AN acutal thang
 	 
 }
 
