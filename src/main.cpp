@@ -9,7 +9,7 @@ TreeNode* insert(TreeNode* root, int key){
 	if (root == nullptr){
 		return new TreeNode(key);
 	}
-	if (key < root ->val) { //if root val is greater, move to the left
+	if (key < root ->ID) { //if root ID is greater, move to the left
 		root -> left = insert(root->left, key);
 	}
 	else{
@@ -46,7 +46,7 @@ int main(){
 		} else if (cmd == "removeInorder"){
 			//call remove inorderfunction
 		} else{
-			cout<< "Invalid Input"<< endl; 
+			cout<< "InIDid Input"<< endl; 
 		}
 		
 		
