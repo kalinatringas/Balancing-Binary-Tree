@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/src**",
                 "${workspaceFolder}/test",
-                "/test/catch/catch_amalgamated.hpp"
+                //"/test/catch/catch_amalgamated.hpp"
             ],
             "defines": [
                 "_DEBUG",

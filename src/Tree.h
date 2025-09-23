@@ -1,5 +1,5 @@
-#pragma once;
-#include <vector>;
+#pragma once
+#include <vector>
 
 using namespace std;
 
@@ -70,9 +70,8 @@ class Tree{
     void clear(){}
     int size(){ return 0;}
 
-    void remove(string id){}
     //i would like to put the insert, delete fun
     // ctions in here? 
-    void removeinorder(TreeNode* root, vector<string>&result){}
+    void removeinorder(){}
     
 };  
