@@ -46,7 +46,7 @@ int main(){
 		} else if (cmd == "removeInorder"){
 			//call remove inorderfunction
 		} else{
-			cout<< "InIDid Input"<< endl; 
+			cout<< "Invalid Input"<< endl; 
 		}
 		
 		
