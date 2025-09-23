@@ -22,6 +22,8 @@ include_directories(src)
 add_executable(Main
         src/main.cpp # your main file
         # add your own header files below - should be automatically added in CLion
+        src/Tree.h
+        src/ProcessCommand.h
         # example (can also separate with newlines):
         # src/AVL.h src/AVL.cpp
         )
@@ -40,4 +42,3 @@ target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain) #link catch to test.
 # comment everything below out if you are using CLion
 include(CTest)
 include(Catch)
-catch_discover_tests(Tests) # must be named the same as your test executable
