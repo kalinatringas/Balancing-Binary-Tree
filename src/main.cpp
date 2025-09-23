@@ -21,8 +21,8 @@ int main(){
 	for (int i = 0; i < cmdNum ; i++){
 		getline(cin, line);
 		if(!processCommand(tree, line))	{
-			cout<< "invalidinnput" << endl;
-		}	
+			cout<< "unsuccessful" << endl;
+		}
 	}	
 	return 0;
 }

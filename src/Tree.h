@@ -37,6 +37,7 @@ class Tree{
 
     void insert(string id, string name){
         root = insert(root, id, name);
+        cout << "successful" << endl;
     }
 
     TreeNode* remove(TreeNode* root, string id){
@@ -54,24 +55,78 @@ class Tree{
 
     void remove(string id) {
         root = remove(root, id);
+        cout << "successful" << endl;
     }
 
     void inorder(TreeNode* root, vector<string>& result){
+        // LRN
         if (!root){return;}
         inorder(root->left, result);
-        result.push_back(root->ID);
+        result.push_back(root->name);
         inorder(root->right, result);
+        cout << "successful" << endl;
 
     }
 
-    vector<string> printinorder(){}
-    // ADD REMOVE CLEAR AND SIZE AND PRINT IN ORDER
+    void preorder(TreeNode* root, vector<string>& result){
+        //NLR
+        if(!root){return;}
+        result.push_back(root->name);
+        preorder(root->left, result);
+        preorder (root->right, result);
+    }
+    
+    void postorder(TreeNode* root, vector<string>& result){
+        //LRN
+        if (!root){return;}
+        postorder(root->left, result);
+        postorder(root-> right, result);
+        result.push_back(root->name);
+    }
 
+    vector<string> printinorder(){
+        vector<string> result;
+        inorder(root, result);
+        for (int i = 0; i < result.size(); i++){
+            cout << result[i]<< ", " ;
+        }
+        cout << endl;
+    }
+    vector<string> printpreorder(){
+        vector<string> result;
+        preorder(root, result);
+        for (int i = 0; i < result.size(); i++){
+            cout << result[i]<< ', ';
+        }
+        cout << endl;
+    }
+    int printLevelCount(){}
     void clear(){}
-    int size(){ return 0;}
 
-    //i would like to put the insert, delete fun
-    // ctions in here? 
-    void removeinorder(){}
+    TreeNode* searchID(TreeNode* node, string target){
+        if ( node->ID > target){
+            // GO LEFT
+            node->left = searchID(root, target);
+        }
+        else if (node ->ID < target){
+            node->right = searchID(root, target);
+        } else if (node -> ID == target){
+            return node;
+        } else{
+            cout << "Error searching IDs" << endl;
+        }
+    }
+
+    string search(string target, string type){
+        if (type == "name"){
+
+        } else if (type == "ID"){
+            root = searchID(root, target);
+        }
+        
+    }
+    void removeinorder(){
+
+    }
     
 };  

@@ -2,6 +2,7 @@ using namespace std;
 #include "ProcessCommand.h"
 #include <sstream>
 #include <iostream>
+#include <cctype>
 
 bool processCommand(Tree& tree, const string& line){	
 	stringstream ss(line);
@@ -26,12 +27,32 @@ bool processCommand(Tree& tree, const string& line){
 		
 			tree.remove(ID);
 			return true;
-		} else if (cmd == "printInorder"){
+		} else if (cmd == "search"){
+			string ID; 
+			ss>> ID;
+			string type;
+			if (ID.size() == 8 && isdigit(ID[0])){
+				type = "ID";
+			} else{
+				type = "name";
+			}
+
+			tree.search(ID, type);// have to make one for names too
+			return true; 
+		}
+		else if (cmd == "printInorder"){
 			//call printInorder function
 			tree.printinorder();
 			return true;
 
-		} else if (cmd == "removeInorder"){
+		} else if (cmd == "printPreorder"){
+			tree.printpreorder();
+			return true;
+		} else if (cmd == "printLevelCount"){
+			tree.printLevelCount();
+			return true;
+		}
+		 else if (cmd == "removeInorder"){
 			//call remove inorderfunction
 			tree.removeinorder();
 			return false;
