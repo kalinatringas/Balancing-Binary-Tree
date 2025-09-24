@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/src**",
-                "${workspaceFolder}/test",
+                "${workspaceFolder}/test"
                 //"/test/catch/catch_amalgamated.hpp"
             ],
             "defines": [

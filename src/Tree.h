@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-
+#include <iostream>
 using namespace std;
 
 class TreeNode{
@@ -8,10 +8,11 @@ class TreeNode{
     string ID; // userID
     string name; //user name
     TreeNode *left; 
-    TreeNode *right;    
+    TreeNode *right;
+    int height;    
     TreeNode(): ID(""), name(""), left(nullptr), right(nullptr){}
-    TreeNode (string x, string y) : ID (x), name(y), left(nullptr), right(nullptr){}
-    TreeNode (string x, string y, TreeNode *left, TreeNode *right): ID(x), left(left), right(right) {}
+    TreeNode (string x, string y) : ID (x), name(y), left(nullptr), right(nullptr), height(1){}
+   // TreeNode (string x, string y, TreeNode *left, TreeNode *right): ID(x), left(left), right(right) {}
 
 };
 
@@ -21,18 +22,80 @@ class Tree{
 
     Tree(): root(nullptr){}
 
-    TreeNode* insert(TreeNode* root, string id, string name){
-        if (root == nullptr){
+    int height(TreeNode* node){
+        return node? node->height: 0; // checks the node, what level is it at? 
+    }
+
+    void updateHeight( TreeNode * node){
+        if (node) node->height = 1 + max(height(node->left), height(node->right)); //updates the nodes height based on its location
+    }
+
+    int balanceFactor(TreeNode * node){
+        if (node == nullptr){
+            return 0;
+        }
+        return height(node->left) - height(node->right);
+    }
+
+    TreeNode* rightRotate(TreeNode* y){
+        TreeNode* x = y->left; //grab the node to the left of the input first
+        TreeNode* T2 = x->right; // temporary hold
+        x->right = y ; 
+        y->left = T2; //TWO SWAPS TO ROTATE
+        updateHeight(x); //update the height value, handy!
+        updateHeight(y);
+        return x;
+    }
+
+    TreeNode * leftRotate(TreeNode* x){
+        TreeNode* y = x->right; //same logic as before, but flipped cause we are going left
+        TreeNode* T2 = y->left;
+        y->left = x;
+        x->right = T2;
+        updateHeight(x);
+        updateHeight(y);
+        return y;
+    }
+
+    TreeNode* balance(TreeNode *node){
+        if (node == nullptr){return node;}
+        
+        updateHeight(node);
+        int bf = balanceFactor(node); //helper function will tell us how much we have to balance by
+
+        //First we do the L case, which means that the left size is heavy
+        if (bf > 1 && balanceFactor(node->left)>=0){
+                return rightRotate(node);
+        }
+        //this is the LR case, left heavy and then we do TWO rotations! to fix!
+        if(bf > 1 && balanceFactor(node->left) < 0){ 
+            node ->left = leftRotate(node);
+            return rightRotate(node);
+        }
+        // RIGHT case! right side is heavy so we rotate left
+        if (bf < -1 && balanceFactor(node->right)>= 0){
+            return leftRotate(node);
+        }
+        // finally the RL case!
+        if( bf < -1 && balanceFactor(node->right) < 0){
+            node->right = rightRotate(node);
+            return leftRotate(node); // i always find it so interest how you end going the opposite of the side you are heavy on. a way to remember
+        }
+        return node;
+    }
+
+    TreeNode* insert(TreeNode* node, string id, string name){
+        if (node == nullptr){
             return new TreeNode(id, name);
         }
-        if (id < root ->ID) { //if root ID is greater, move to the left
-            root -> left = insert(root->left, id, name);
+        if (id < node ->ID) { //if root ID is greater, move to the left
+            node -> left = insert(node->left, id, name);
         }
         else{
-            root -> right = insert(root->right, id,name);
+            node -> right = insert(node->right, id,name);
 
         }   
-        return root;
+        return node;
     }
 
     void insert(string id, string name){
@@ -40,17 +103,17 @@ class Tree{
         cout << "successful" << endl;
     }
 
-    TreeNode* remove(TreeNode* root, string id){
-        if (root == nullptr){
+    TreeNode* remove(TreeNode* node, string id){
+        if (node == nullptr){
             return nullptr;
         }
-        if (id < root ->ID) { //if root ID is greater, move to the left
-            root -> left = remove(root->left, id);
+        if (id < node ->ID) { //if node ID is greater, move to the left
+            node -> left = remove(node->left, id);
         }
-        else if (id > root->ID){
-            root -> right = remove(root->right, id);
+        else if (id > node->ID){
+            node -> right = remove(node->right, id);
         }//need to add the actual removal stuff
-        return root;
+        return node;
     }
 
     void remove(string id) {
@@ -58,41 +121,42 @@ class Tree{
         cout << "successful" << endl;
     }
 
-    void inorder(TreeNode* root, vector<string>& result){
+    void inorder(TreeNode* node, vector<string>& result){
         // LRN
-        if (!root){return;}
-        inorder(root->left, result);
-        result.push_back(root->name);
-        inorder(root->right, result);
+        if (!node){return;}
+        inorder(node->left, result);
+        result.push_back(node->name);
+        inorder(node->right, result);
         cout << "successful" << endl;
 
     }
 
-    void preorder(TreeNode* root, vector<string>& result){
+    void preorder(TreeNode* node, vector<string>& result){
         //NLR
-        if(!root){return;}
-        result.push_back(root->name);
-        preorder(root->left, result);
-        preorder (root->right, result);
+        if(!node){return;}
+        result.push_back(node->name);
+        preorder(node->left, result);
+        preorder (node->right, result);
     }
     
-    void postorder(TreeNode* root, vector<string>& result){
+    void postorder(TreeNode* node, vector<string>& result){
         //LRN
-        if (!root){return;}
-        postorder(root->left, result);
-        postorder(root-> right, result);
-        result.push_back(root->name);
+        if (!node){return;}
+        postorder(node->left, result);
+        postorder(node-> right, result);
+        result.push_back(node->name);
     }
 
-    vector<string> printinorder(){
+    void printinorder(){
         vector<string> result;
         inorder(root, result);
         for (int i = 0; i < result.size(); i++){
             cout << result[i]<< ", " ;
         }
         cout << endl;
+        
     }
-    vector<string> printpreorder(){
+    void printpreorder(){
         vector<string> result;
         preorder(root, result);
         for (int i = 0; i < result.size(); i++){
@@ -100,20 +164,21 @@ class Tree{
         }
         cout << endl;
     }
-    int printLevelCount(){}
+    void printLevelCount(){}
     void clear(){}
 
-    TreeNode* searchID(TreeNode* node, string target){
-        if ( node->ID > target){
-            // GO LEFT
-            node->left = searchID(root, target);
+    TreeNode* searchID(TreeNode* node, const string& target) {
+        if (node == nullptr) {
+            return nullptr; // base case
         }
-        else if (node ->ID < target){
-            node->right = searchID(root, target);
-        } else if (node -> ID == target){
-            return node;
-        } else{
-            cout << "Error searching IDs" << endl;
+        if (node->ID > target) {
+            return searchID(node->left, target);
+        }
+        else if (node->ID < target) {
+            return searchID(node->right, target);
+        }
+        else { 
+            return node; // found
         }
     }
 
@@ -123,7 +188,7 @@ class Tree{
         } else if (type == "ID"){
             root = searchID(root, target);
         }
-        
+        return "yes";
     }
     void removeinorder(){
 

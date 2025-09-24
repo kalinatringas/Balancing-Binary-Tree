@@ -15,7 +15,7 @@ int main(){
 	cin >> cmdNum;
 	cin.ignore();
 	Tree tree;
-	TreeNode* root = nullptr;
+//	TreeNode* root = nullptr;
 	string line;
 	
 	for (int i = 0; i < cmdNum ; i++){
