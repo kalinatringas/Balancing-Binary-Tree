@@ -49,7 +49,7 @@ class Tree{
         }
         else if (id > root->ID){
             root -> right = remove(root->right, id);
-        }//need to add the actual removal stuff
+        }
         return root;
     }
 

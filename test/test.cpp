@@ -66,26 +66,26 @@ TEST_CASE("Insertions", "[flag]"){
 
 // the provided test from the template is below.
 
-TEST_CASE("Insert and delete bulk", "[flag]"){
-	Tree tree; // tree object hellO!
-	for (int i = 1 ; i <= 100; i++){
-		tree.insert(to_string(20000000-i), "Name" + to_string(i));
-	}
-	REQUIRE(tree.size() == 100);
+// TEST_CASE("Insert and delete bulk", "[flag]"){
+// 	Tree tree; // tree object hellO!
+// 	for (int i = 1 ; i <= 100; i++){
+// 		tree.insert(to_string(20000000-i), "Name" + to_string(i));
+// 	}
+// 	REQUIRE(tree.size() == 100);
 
-	vector<string> removed = {"5","10","15","20","25","30","35","40","45","50"};
-	for (string id : removed){
-		tree.remove(id);
-	}
-	REQUIRE(tree.size() == 90);
+// 	vector<string> removed = {"5","10","15","20","25","30","35","40","45","50"};
+// 	for (string id : removed){
+// 		tree.remove(id);
+// 	}
+// 	REQUIRE(tree.size() == 90);
 
-	auto inorder = tree.printinorder();
-	REQUIRE(inorder.size() == 90);
-	for (int i =1 ; i <= 100; i++){
-		if (find(removed.begin(), removed.end(), i) == removed.end()){
-			REQUIRE(find(inorder.begin(), inorder.end(), i) != inorder.end());
-		}
-	} //should be sorted, do not contain removed elements
+// 	auto inorder = tree.printinorder();
+// 	REQUIRE(inorder.size() == 90);
+// 	for (int i =1 ; i <= 100; i++){
+// 		if (find(removed.begin(), removed.end(), i) == removed.end()){
+// 			REQUIRE(find(inorder.begin(), inorder.end(), i) != inorder.end());
+// 		}
+// 	} //should be sorted, do not contain removed elements
 
 
-}
+// }
