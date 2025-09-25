@@ -84,17 +84,30 @@ class Tree{
         return node;
     }
 
-    TreeNode* insert(TreeNode* node, string id, string name){
+    TreeNode* insert(TreeNode* node, string id, string Name){
         if (node == nullptr){
-            return new TreeNode(id, name);
+            TreeNode* newNode = new TreeNode; 
+            newNode->height = 1;
+            newNode->ID = id;
+            newNode->name = Name; 
+            newNode->left = nullptr;
+            newNode->right = nullptr;
+            cout << "successful" <<endl;
+            return newNode;
+
         }
         if (id < node ->ID) { //if root ID is greater, move to the left
-            node -> left = insert(node->left, id, name);
+            node -> left = insert(node->left, id, Name);
         }
-        else{
-            node -> right = insert(node->right, id,name);
-
+        else if (id > node->ID){   
+            node -> right = insert(node->right, id,Name);
         }   
+        else{
+            cout << "unsuccessful"<< endl;
+            return node;
+        }
+        updateHeight(node);
+        balance(node);
         return node;
     }
 
@@ -112,7 +125,7 @@ class Tree{
         }
         else if (id > node->ID){
             node -> right = remove(node->right, id);
-        }//need to add the actual removal stuff
+        }
         return node;
     }
 

@@ -4,6 +4,10 @@
         "iostream": "cpp",
         "xstring": "cpp",
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "chrono": "cpp",
+        "future": "cpp",
+        "system_error": "cpp",
+        "xlocale": "cpp"
     }
 }
