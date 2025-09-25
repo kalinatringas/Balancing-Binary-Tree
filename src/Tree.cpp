@@ -17,26 +17,23 @@ class TreeNode{
 };
 
 class Tree{
-   public:
+
+    private: 
     TreeNode* root; //a pointer to the root!
-
-    Tree(): root(nullptr){}
-
     int height(TreeNode* node){
-        return node? node->height: 0; // checks the node, what level is it at? 
-    }
+            return node? node->height: 0; // checks the node, what level is it at? 
+        }
 
     void updateHeight( TreeNode * node){
         if (node) node->height = 1 + max(height(node->left), height(node->right)); //updates the nodes height based on its location
     }
-
+    
     int balanceFactor(TreeNode * node){
         if (node == nullptr){
             return 0;
         }
         return height(node->left) - height(node->right);
     }
-
     TreeNode* rightRotate(TreeNode* y){
         TreeNode* x = y->left; //grab the node to the left of the input first
         TreeNode* T2 = x->right; // temporary hold
@@ -111,11 +108,6 @@ class Tree{
         return node;
     }
 
-    void insert(string id, string name){
-        root = insert(root, id, name);
-        cout << "successful" << endl;
-    }
-
     TreeNode* remove(TreeNode* node, string id){
         if (node == nullptr){
             return nullptr;
@@ -129,9 +121,31 @@ class Tree{
         return node;
     }
 
-    void remove(string id) {
-        root = remove(root, id);
-        cout << "successful" << endl;
+    TreeNode* searchID(TreeNode* node, const string& target) {
+        if (node == nullptr || node->ID == target) {
+            return node; // base case
+        }
+        if (node->ID > target) {
+            return searchID(node->left, target);
+        }
+        else if (node->ID < target) {
+            return searchID(node->right, target);
+        } else {
+            cout << "Error" << endl;
+            return node;
+        }
+    }
+
+    void searchName (TreeNode* node, const string& target, vector<string>& ids){
+        if (node == nullptr){
+            return;
+        }
+        // we do a pre order traveral of the entire tree
+        if (node->name == target){
+            ids.push_back(node->ID);
+        }
+        searchName(node->left, target,ids);
+        searchName(node->right, target,ids);
     }
 
     void inorder(TreeNode* node, vector<string>& result){
@@ -159,6 +173,46 @@ class Tree{
         postorder(node-> right, result);
         result.push_back(node->name);
     }
+    void findNthInOrder(TreeNode* node, int& n, string& foundID){
+        if (node == nullptr || foundID.empty()){
+            return;
+        }
+        findNthInOrder(node->left, n, foundID);
+        if (foundID.empty()) {
+            if (n == 0) {
+                foundID = node->ID;
+            }
+            n--;
+        }
+        findNthInOrder(node->right, n, foundID);
+
+    }
+
+    public:
+    
+    Tree(): root(nullptr){}
+
+    ~Tree(){
+        string idTo_remove;
+        while(root!= nullptr){
+            idTo_remove = root->ID;
+            remove(idTo_remove);
+        }
+    }
+
+    void insert(string id, string name){
+        root = insert(root, id, name);
+        cout << "successful" << endl;
+    }
+
+    void remove(string id) {
+        root = remove(root, id);
+        cout << "successful" << endl;
+    }
+
+    // this pubic methond searches for id
+    
+    
 
     void printinorder(){
         vector<string> result;
@@ -180,21 +234,6 @@ class Tree{
     void printLevelCount(){}
     void clear(){}
 
-    TreeNode* searchID(TreeNode* node, const string& target) {
-        if (node == nullptr) {
-            return nullptr; // base case
-        }
-        if (node->ID > target) {
-            return searchID(node->left, target);
-        }
-        else if (node->ID < target) {
-            return searchID(node->right, target);
-        }
-        else { 
-            return node; // found
-        }
-    }
-
     string search(string target, string type){
         if (type == "name"){
 
@@ -203,8 +242,6 @@ class Tree{
         }
         return "yes";
     }
-    void removeinorder(){
-
-    }
+    
     
 };  
