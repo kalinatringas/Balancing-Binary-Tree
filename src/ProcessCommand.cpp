@@ -18,8 +18,7 @@ bool processCommand(Tree& tree, const string& line){
 			//add to insert function 
 			tree.insert(ID, name);
 			return true;
-		
-
+	
 		} else if (cmd == "remove"){
 			//call remove function
 			string ID;
@@ -55,7 +54,7 @@ bool processCommand(Tree& tree, const string& line){
 		 else if (cmd == "removeInorder"){
 			//call remove inorderfunction
 			tree.removeinorder();
-			return false;
-		}
+			return true;
+		} else{return false;}
 
-}
+	}

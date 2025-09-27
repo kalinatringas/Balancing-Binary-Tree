@@ -2,6 +2,8 @@
 //#include <catch/catch_amalgamated.hpp>
 #include "catch/catch_amalgamated.hpp"
 #include <iostream>
+#include <string>
+#include <vector>
 // Kalina Tringas 93304875
 
 // uncomment and replace the following with your own headers
@@ -11,7 +13,7 @@
 using namespace std;
 
 // the syntax for defining a test is below. It is important for the name to be unique, but you can group multiple tests with [tags]. A test can have [multiple][tags] using that syntax.
-TEST_CASE("Invalid Commands", "[flag]"){
+TEST_CASE("Invalid Commands", "[commands]"){
 	Tree tree;
 	REQUIRE_FALSE(processCommand(tree, "insert"));// icomplete insert
 	REQUIRE_FALSE(processCommand(tree, "delete")); // not a thing
@@ -21,7 +23,7 @@ TEST_CASE("Invalid Commands", "[flag]"){
 	 
 }
 
-TEST_CASE("Insertions", "[flag]"){
+TEST_CASE("Insertions", "[insert]"){
 	// you can also use "sections" to share setup code between tests, for example:
 	Tree tree; 
 	tree.insert("10000002", "TOP");
@@ -66,7 +68,7 @@ TEST_CASE("Insertions", "[flag]"){
 
 // the provided test from the template is below.
 
-// TEST_CASE("Insert and delete bulk", "[flag]"){
+// TEST_CASE("Insert and delete bulk", "[bulk]"){
 // 	Tree tree; // tree object hellO!
 // 	for (int i = 1 ; i <= 100; i++){
 // 		tree.insert(to_string(20000000-i), "Name" + to_string(i));
