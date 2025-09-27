@@ -109,14 +109,27 @@ class Tree{
     }
 
     TreeNode* remove(TreeNode* node, string id){
-        if (node == nullptr){
-            return nullptr;
-        }
+        if (node == nullptr){return nullptr;}
+
         if (id < node ->ID) { //if node ID is greater, move to the left
+            
             node -> left = remove(node->left, id);
         }
         else if (id > node->ID){
             node -> right = remove(node->right, id);
+        } else{
+            //the node that needs to be deleted is found
+            // check to see if no children
+            if (node -> left == nullptr || node -> right == nullptr){ // this is looking at one child 
+                TreeNode* temp = (node->left) ? node->left : node->right;// checks for children left then right
+                if (temp == nullptr){ //if there are no children left or right
+                    temp = node;
+                    delete temp;
+                    node = nullptr;
+                } else{ // oh hello there is a child! 
+                    
+                }
+            }
         }
         return node;
     }
