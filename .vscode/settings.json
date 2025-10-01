@@ -8,6 +8,8 @@
         "chrono": "cpp",
         "future": "cpp",
         "system_error": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "regex": "cpp",
+        "utility": "cpp"
     }
 }

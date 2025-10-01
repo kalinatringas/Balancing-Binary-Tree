@@ -26,12 +26,13 @@ include_directories(src)
 add_executable(Main
         src/main.cpp
         src/ProcessCommand.cpp
+        src/Tree.cpp
 )
 
 add_executable(Tests
         test/test.cpp
         src/ProcessCommand.cpp
-        src/Tree.h
+        src/Tree.cpp
 )
 
 target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain)
